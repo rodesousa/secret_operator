@@ -84,7 +84,7 @@ defmodule SecretOperator.Controller.V1.SecretRef do
              "v1",
              "Secret",
              namespace: payload["spec"]["originNamespace"],
-             name: payload["spec"]["nameSecret"]
+             name: payload["spec"]["secretName"]
            )
            |> K8s.Client.run(:default) do
       response
@@ -114,7 +114,7 @@ defmodule SecretOperator.Controller.V1.SecretRef do
         "v1",
         "secret",
         namespace: payload["spec"]["targetNamespace"],
-        name: payload["spec"]["nameSecret"]
+        name: payload["spec"]["secretName"]
       )
       |> K8s.Client.run(:default)
 
@@ -163,7 +163,7 @@ defmodule SecretOperator.Controller.V1.SecretRef do
              "v1",
              "secret",
              namespace: payload["spec"]["originNamespace"],
-             name: payload["spec"]["nameSecret"]
+             name: payload["spec"]["secretName"]
            )
            |> K8s.Client.run(:default),
          {:ok, secret_copied} <-
@@ -171,7 +171,7 @@ defmodule SecretOperator.Controller.V1.SecretRef do
              "v1",
              "secret",
              namespace: payload["spec"]["targetNamespace"],
-             name: payload["spec"]["nameSecret"]
+             name: payload["spec"]["secretName"]
            )
            |> K8s.Client.run(:default) do
       case Map.equal?(secret_reference["data"], secret_copied["data"]) do
