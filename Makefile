@@ -6,3 +6,6 @@ launch:
 
 run:
 	@iex -S mix
+
+manifest:
+	@mix bonny.gen.manifest
